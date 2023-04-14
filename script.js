@@ -1,4 +1,4 @@
-// // //your JS code here. If required.
+// // // //your JS code here. If required.
 
 
 
@@ -44,32 +44,27 @@
 
 
 
+const nameInput = document.getElementById('name');
+const ageInput = document.getElementById('age');
+const submitBtn = document.getElementById('btn');
 
+submitBtn.addEventListener('click', (event) => {
+  event.preventDefault(); 
+  const delayPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Number(ageInput.value) >= 18) {
+        resolve({ name: nameInput.value, age: Number(ageInput.value) });
+      } else {
+        reject({ name: nameInput.value });
+      }
+    }, 4000);
+  });
 
-
-var ageElement=document.querySelector("#age");
-var nameElement=document.querySelector("#name");
-var btnElement=document.querySelector("btn");
-
-var promise=new Promise(function (resolve,reject) {
-setTimeOut(function () {
-	if(!(age & name)){
-		return reject("Error");
-	}
-	if(age>18){
-		return resolve(`Welcome, ${name} You can vote.`)
-	}else{
-		return reject(`Oh sorry ${name} You aren't old enough.`)
-	}
-},4000)
-	
-})
-function callPromise() {
-	return promise;
-}
-function HandleEventPromise() {
-	callPromise.then(alert("DONE")).catch(alert("Error"));
-	
-}
-
-btnElement.addEventListener("click",HandleEventPromise());
+  delayPromise
+    .then((data) => {
+      alert(`Welcome, ${data.name}. You can vote.`);
+    })
+    .catch((error) => {
+      alert(`Oh sorry ${error.name}. You aren't old enough.`);
+    });
+});
